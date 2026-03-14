@@ -1,0 +1,5 @@
+{
+  "name": "没关系派对 (It's Okay Party)",
+  "description": "一个专为6-10岁儿童设计的治愈系情感互助社区游戏。通过捞取盲盒、合成治愈礼包，让孩子在互动中释放负面情绪，建立正向社交。",
+  "requestFramePermissions": ["microphone"]
+}

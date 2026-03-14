@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --color-jelly-yellow: #FFD93D;
+  --color-jelly-green: #6BCB77;
+  --color-jelly-purple: #9B72AA;
+  --color-jelly-pink: #FF6B6B;
+  --color-macaron-pink: #FFB7B2;
+  --color-macaron-peach: #FFDAC1;
+  --color-macaron-yellow: #E2F0CB;
+  --color-macaron-mint: #B5EAD7;
+  --color-macaron-lavender: #C7CEEA;
+}
+
+@layer base {
+  body {
+    @apply bg-[#050510] overflow-hidden antialiased text-white;
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+.jelly-text {
+  text-shadow: 0 4px 0 rgba(0,0,0,0.1), 0 0 20px rgba(255,255,255,0.2);
+  filter: drop-shadow(0 0 10px rgba(255,183,178,0.3));
+}
+
+.jelly-button {
+  @apply relative overflow-hidden transition-all duration-300 active:scale-95;
+  box-shadow: 0 12px 0 rgba(0,0,0,0.15);
+}
+
+.jelly-button:active {
+  transform: translateY(6px);
+  box-shadow: 0 6px 0 rgba(0,0,0,0.15);
+}
+
+.glass-panel {
+  @apply bg-white/20 backdrop-blur-xl border border-white/30 rounded-3xl;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
