@@ -1,10 +1,32 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { Sparkles as SparklesIcon } from 'lucide-react'; // 只导入需要用到的图标
 
 type GameState = 'START' | 'CREATE_EGGY' | 'PLAZA' | 'ISLAND' | 'UNPACK';
 
 export default function App() {
   const [gameState, setGameState] = useState<GameState>('START');
+  const [eggyConfig, setEggyConfig] = useState({ color: '#FFD93D', elasticity: 0.1 });
+  const [activeTrouble, setActiveTrouble] = useState(null);
+  const [aiResponse, setAiResponse] = useState(null);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [replyText, setReplyText] = useState('');
+
+  const handleStart = () => setGameState('CREATE_EGGY');
+  const handleEggyDone = () => setGameState('PLAZA');
+  const handleCatch = (trouble: any) => {
+    setActiveTrouble(trouble);
+    setGameState('UNPACK');
+  };
+  const handleSendComfort = async (text: string) => {
+    // 简化版，避免调用 API
+    setAiResponse({ text: '测试回复', emoji: '✨' });
+    setTimeout(() => {
+      setGameState('PLAZA');
+      setActiveTrouble(null);
+      setAiResponse(null);
+    }, 1000);
+  };
 
   return (
     <div className="h-screen w-screen bg-[#FFF9C4] flex items-center justify-center font-sans">
@@ -14,10 +36,30 @@ export default function App() {
         
         <AnimatePresence mode="wait">
           {gameState === 'START' && (
-            <motion.div key="start" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-              <div style={{ padding: '20px', color: 'white' }}>当前状态: START</div>
+            <motion.div 
+              key="start"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="flex flex-col items-center justify-center h-full z-10 p-6 text-center relative"
+            >
+              {/* 恢复 START 界面的文字和按钮，但不要 Canvas */}
+              <h1 className="text-5xl font-black mb-4 tracking-tighter text-jelly-purple drop-shadow-[0_2px_10px_rgba(255,255,255,0.8)]">
+                没关系派对
+              </h1>
+              <p className="text-lg text-jelly-purple/70 mb-12 max-w-[260px] mx-auto font-bold">
+                在这里，每一个烦恼都会变成<br/>宇宙中最绚烂的烟花
+              </p >
+              <button 
+                onClick={handleStart}
+                className="jelly-button bg-white text-jelly-purple px-10 py-4 rounded-full text-lg font-black flex items-center gap-2 shadow-[0_10px_30px_rgba(255,255,255,0.4)] border-b-4 border-black/5"
+              >
+                <SparklesIcon className="w-4 h-4 text-jelly-pink" />
+                加入治愈星球
+              </button>
             </motion.div>
           )}
+
           {gameState === 'CREATE_EGGY' && (
             <motion.div key="create" initial={{ opacity: 0, x: '100%' }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: '-100%' }}>
               <div style={{ padding: '20px', color: 'white' }}>当前状态: CREATE_EGGY</div>
@@ -39,30 +81,6 @@ export default function App() {
             </motion.div>
           )}
         </AnimatePresence>
-
-        {/* 临时按钮切换状态 */}
-        <button
-          onClick={() => {
-            if (gameState === 'START') setGameState('CREATE_EGGY');
-            else if (gameState === 'CREATE_EGGY') setGameState('PLAZA');
-            else if (gameState === 'PLAZA') setGameState('ISLAND');
-            else if (gameState === 'ISLAND') setGameState('UNPACK');
-            else setGameState('START');
-          }}
-          style={{
-            position: 'absolute',
-            bottom: '20px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            padding: '10px 20px',
-            background: 'white',
-            border: 'none',
-            borderRadius: '20px',
-            cursor: 'pointer'
-          }}
-        >
-          切换状态
-        </button>
       </div>
     </div>
   );
