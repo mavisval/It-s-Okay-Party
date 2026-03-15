@@ -1,19 +1,15 @@
 import React, { useState } from 'react';
 
-// 定义游戏状态类型（和原代码保持一致）
 type GameState = 'START' | 'CREATE_EGGY' | 'PLAZA' | 'ISLAND' | 'UNPACK';
 
 export default function App() {
   const [gameState, setGameState] = useState<GameState>('START');
 
-  // 简单的按钮切换状态
-  const nextState = () => {
-    if (gameState === 'START') setGameState('CREATE_EGGY');
-    else if (gameState === 'CREATE_EGGY') setGameState('PLAZA');
-    else if (gameState === 'PLAZA') setGameState('ISLAND');
-    else if (gameState === 'ISLAND') setGameState('UNPACK');
-    else setGameState('START');
-  };
+  const handleStart = () => setGameState('CREATE_EGGY');
+  const handleEggyDone = () => setGameState('PLAZA');
+  const handleGoToIsland = () => setGameState('ISLAND');
+  const handleGoToUnpack = () => setGameState('UNPACK');
+  const handleBack = () => setGameState('START');
 
   return (
     <div style={{
@@ -26,36 +22,51 @@ export default function App() {
       background: 'linear-gradient(135deg, #B5EAD7, #E0BBE4, #FFB7B2)',
       fontFamily: 'sans-serif'
     }}>
-      <h1 style={{ fontSize: '3rem', marginBottom: '1rem' }}>没关系派对 (调试模式)</h1>
+      <h1 style={{ fontSize: '3rem', marginBottom: '1rem' }}>没关系派对 (简化测试)</h1>
       <div style={{
         background: 'white',
         padding: '2rem',
         borderRadius: '2rem',
         boxShadow: '0 10px 30px rgba(0,0,0,0.2)',
-        textAlign: 'center'
+        textAlign: 'center',
+        minWidth: '300px'
       }}>
         <p style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>
-          当前游戏状态: <strong style={{ color: '#FF6B6B' }}>{gameState}</strong>
+          当前状态: <strong style={{ color: '#FF6B6B' }}>{gameState}</strong>
         </p >
-        <button
-          onClick={nextState}
-          style={{
-            background: '#FFB7B2',
-            border: 'none',
-            padding: '1rem 2rem',
-            borderRadius: '3rem',
-            fontSize: '1.2rem',
-            fontWeight: 'bold',
-            cursor: 'pointer',
-            boxShadow: '0 5px 0 #E08E8A'
-          }}
-        >
-          切换状态
-        </button>
+
+        {gameState === 'START' && (
+          <button onClick={handleStart} style={buttonStyle}>开始创建</button>
+        )}
+        {gameState === 'CREATE_EGGY' && (
+          <button onClick={handleEggyDone} style={buttonStyle}>完成创建，去广场</button>
+        )}
+        {gameState === 'PLAZA' && (
+          <button onClick={handleGoToIsland} style={buttonStyle}>去岛屿</button>
+        )}
+        {gameState === 'ISLAND' && (
+          <button onClick={handleGoToUnpack} style={buttonStyle}>去解包</button>
+        )}
+        {gameState === 'UNPACK' && (
+          <button onClick={handleBack} style={buttonStyle}>返回开始</button>
+        )}
+
         <p style={{ marginTop: '2rem', fontSize: '0.9rem', color: '#666' }}>
-          点击按钮切换状态，观察页面变化。
+          点击按钮切换状态，观察是否一直正常显示。
         </p >
       </div>
     </div>
   );
 }
+
+const buttonStyle = {
+  background: '#FFB7B2',
+  border: 'none',
+  padding: '0.8rem 1.5rem',
+  borderRadius: '2rem',
+  fontSize: '1rem',
+  fontWeight: 'bold',
+  cursor: 'pointer',
+  boxShadow: '0 5px 0 #E08E8A',
+  marginTop: '1rem'
+};
