@@ -75,11 +75,11 @@ const HeroPlanet = () => {
 };
 
 const ShootingStar = () => {
-  return null;
+   null;
 };
 
 const CosmicScene = () => {
-  return (
+   (
     <>
       <Stars radius={100} depth={50} count={3000} factor={4} saturation={1} fade speed={0} />
       <Sparkles count={150} scale={20} size={2} speed={0} opacity={0.6} color="#B5EAD7" />
@@ -143,7 +143,7 @@ export default function App() {
       const timeLeft = animationEnd - Date.now();
 
       if (timeLeft <= 0) {
-        return clearInterval(interval);
+         clearInterval(interval);
       }
 
       const particleCount = 50 * (timeLeft / duration);
@@ -168,7 +168,7 @@ export default function App() {
     <div style={{position: 'absolute', top: 10, left: 10, zIndex: 9999, color: 'red', background: 'white', padding: '5px'}}>
       当前游戏状态: {gameState}
     </div>
-    {/* 原来的 return 内容从这里开始 */}
+    {/* 
     <div className="h-screen w-screen bg-[#FFF9C4] flex items-center justify-center font-sans">
       <div className="relative w-full h-full max-w-[500px] max-h-[900px] bg-gradient-to-br from-[#B5EAD7] via-[#E0BBE4] to-[#FFB7B2] overflow-hidden shadow-2xl md:rounded-[3rem] md:border-[12px] md:border-white/20">
         {/* Background Atmosphere */}
