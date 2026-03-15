@@ -1,6 +1,11 @@
+console.log('环境变量VITE_GEMINI_API_KEY:', import.meta.env.VITE_GEMINI_API_KEY);
 import { GoogleGenAI, Type } from "@google/genai";
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+if (!apiKey) {
+  throw new Error("API Key is missing! Please set VITE_GEMINI_API_KEY in .env");
+}
+const ai = new GoogleGenAI({ apiKey });
 
 export async function generateEncouragement(troubleText: string, userReply?: string) {
   try {
