@@ -163,11 +163,12 @@ export default function App() {
     }, 3000);
   };
 
-  return (
- <>
+ return (
+  <>
     <div style={{position: 'absolute', top: 10, left: 10, zIndex: 9999, color: 'red', background: 'white', padding: '5px'}}>
       当前游戏状态: {gameState}
     </div>
+    {/* 原来的 return 内容从这里开始 */}
     <div className="h-screen w-screen bg-[#FFF9C4] flex items-center justify-center font-sans">
       <div className="relative w-full h-full max-w-[500px] max-h-[900px] bg-gradient-to-br from-[#B5EAD7] via-[#E0BBE4] to-[#FFB7B2] overflow-hidden shadow-2xl md:rounded-[3rem] md:border-[12px] md:border-white/20">
         {/* Background Atmosphere */}
